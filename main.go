@@ -3,24 +3,26 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
+var usertix uint
+var firstName string
+var lastName string
+var userEmail string
+
 func main() {
+	greetUsers()
 	confName := "GoCon"
 	const conftix int = 50
 	var remtix uint = 50
 	var bookings = make([]map[string]string, 0)
 
-	fmt.Println("Welcome to TixCLI.")
 	fmt.Printf("Get your tickets to attend %v\n", confName)
 	fmt.Printf("Total GoCon tickets: %v    Remaining GoCon tickets: %v\n", conftix, remtix)
 	fmt.Println("--------------------------------------------------")
 
 	for remtix > 0 {
-		var firstName string
-		var lastName string
-		var userEmail string
-		var usertix uint
 
 		fmt.Print("Please enter your first name: ")
 		fmt.Scan(&firstName)
@@ -62,13 +64,13 @@ func main() {
 		} else {
 			fmt.Println("\n--- Invalid Input ---")
 			if !isValidName {
-				fmt.Println("❌ First name or last name is too short.")
+				fmt.Println("First name or last name is too short.")
 			}
 			if !isValidEmail {
-				fmt.Println("❌ The email address you entered is missing an '@'.")
+				fmt.Println("The email address you entered is missing an '@'.")
 			}
 			if !isValidTicketNum {
-				fmt.Printf("❌ You requested %v tickets, but we only have %v available or your request was invalid.\n", usertix, remtix)
+				fmt.Printf("You requested %v tickets, but we only have %v available or your request was invalid.\n", usertix, remtix)
 			}
 			fmt.Println("Please try again.")
 		}
@@ -76,4 +78,16 @@ func main() {
 	}
 
 	fmt.Println("Sorry, all tickets for GoCon have been sold out. Thank you!")
+}
+
+func greetUsers() {
+	fmt.Println("Welcome to TixCLI.")
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(50 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+	fmt.Println("#################")
+	fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("#################")
 }
